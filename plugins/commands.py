@@ -601,137 +601,148 @@ async def delete_all_index_confirm(bot, message):
 
 @Client.on_message(filters.command('settings'))
 async def settings(client, message):
-    userid = message.from_user.id if message.from_user else None
-    if not userid:
-        return await message.reply(f"ʏᴏᴜ'ʀᴇ ᴀɴᴏɴʏᴍᴏᴜꜱ ᴀᴅᴍɪɴ.\nᴜꜱᴇ /connect {message.chat.id} ɪɴ ᴘᴍ.")
-    chat_type = message.chat.type
-    if chat_type not in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-        return await message.reply_text("<b>ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ɪɴ ɢʀᴏᴜᴘ.</b>")
-    grp_id = message.chat.id
-    if not await is_check_admin(client, grp_id, message.from_user.id):
-        return await message.reply_text('<b>ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴅᴍɪɴ ɪɴ ᴛʜɪꜱ ɢʀᴏᴜᴘ</b>')
-    settings = await get_settings(grp_id)
-    title = message.chat.title
-    if settings is not None:
-        buttons = [        
-                [
-                InlineKeyboardButton(
-                    'ʀᴇꜱᴜʟᴛ ᴘᴀɢᴇ',
-                    callback_data=f'setgs#button#{settings.get("button")}#{grp_id}',
-                ),
-                InlineKeyboardButton(
-                    'ʙᴜᴛᴛᴏɴ' if settings.get("button") else 'ᴛᴇxᴛ',
-                    callback_data=f'setgs#button#{ssettings.get("button")}#{grp_id}',
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    'ꜰɪʟᴇ ꜱᴇɴᴅ ᴍᴏᴅᴇ',
-                    callback_data=f'setgs#botpm#{settings["botpm"]}#{grp_id}',
-                ),
-                InlineKeyboardButton(
-                    'ꜱᴛᴀʀᴛ' if settings["botpm"] else 'ᴀᴜᴛᴏ',
-                    callback_data=f'setgs#botpm#{settings["botpm"]}#{grp_id}',
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    'ꜰɪʟᴇ ꜱᴇᴄᴜʀᴇ',
-                    callback_data=f'setgs#file_secure#{settings["file_secure"]}#{grp_id}',
-                ),
-                InlineKeyboardButton(
-                    'ᴇɴᴀʙʟᴇ' if settings["file_secure"] else 'ᴅɪꜱᴀʙʟᴇ',
-                    callback_data=f'setgs#file_secure#{settings["file_secure"]}#{grp_id}',
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    'ɪᴍᴅʙ ᴘᴏꜱᴛᴇʀ',
-                    callback_data=f'setgs#imdb#{settings["imdb"]}#{grp_id}',
-                ),
-                InlineKeyboardButton(
-                    'ᴇɴᴀʙʟᴇ' if settings["imdb"] else 'ᴅɪꜱᴀʙʟᴇ',
-                    callback_data=f'setgs#imdb#{settings["imdb"]}#{grp_id}',
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    'ꜱᴘᴇʟʟ ᴄʜᴇᴄᴋ',
-                    callback_data=f'setgs#spell_check#{settings["spell_check"]}#{grp_id}',
-                ),
-                InlineKeyboardButton(
-                    'ᴇɴᴀʙʟᴇ' if settings["spell_check"] else 'ᴅɪꜱᴀʙʟᴇ',
-                    callback_data=f'setgs#spell_check#{settings["spell_check"]}#{grp_id}',
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    'ᴡᴇʟᴄᴏᴍᴇ ᴍꜱɢ',
-                    callback_data=f'setgs#welcome#{settings["welcome"]}#{grp_id}',
-                ),
-                InlineKeyboardButton(
-                    'ᴇɴᴀʙʟᴇ' if settings["welcome"] else 'ᴅɪꜱᴀʙʟᴇ',
-                    callback_data=f'setgs#welcome#{settings["welcome"]}#{grp_id}',
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    'ᴀᴜᴛᴏ ᴅᴇʟᴇᴛᴇ',
-                    callback_data=f'setgs#auto_delete#{settings["auto_delete"]}#{grp_id}',
-                ),
-                InlineKeyboardButton(
-                    'ᴇɴᴀʙʟᴇ' if settings["auto_delete"] else 'ᴅɪꜱᴀʙʟᴇ',
-                    callback_data=f'setgs#auto_delete#{settings["auto_delete"]}#{grp_id}',
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    'ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ',
-                    callback_data=f'setgs#auto_ffilter#{settings["auto_ffilter"]}#{grp_id}',
-                ),
-                InlineKeyboardButton(
-                    'ᴇɴᴀʙʟᴇ' if settings["auto_ffilter"] else 'ᴅɪꜱᴀʙʟᴇ',
-                    callback_data=f'setgs#auto_ffilter#{settings["auto_ffilter"]}#{grp_id}',
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    'ᴍᴀx ʙᴜᴛᴛᴏɴꜱ',
-                    callback_data=f'setgs#max_btn#{settings["max_btn"]}#{grp_id}',
-                ),
-                InlineKeyboardButton(
-                    '10' if settings["max_btn"] else f'{MAX_B_TN}',
-                    callback_data=f'setgs#max_btn#{settings["max_btn"]}#{grp_id}',
-                ),
-            ],
-            [
-                InlineKeyboardButton('⇋ ᴄʟᴏꜱᴇ ꜱᴇᴛᴛɪɴɢꜱ ᴍᴇɴᴜ ⇋', 
-                                     callback_data='close_data'
-                                     )
-            ]
-        ]        
-        btn = [[
-                InlineKeyboardButton("👤 ᴏᴘᴇɴ ɪɴ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ 👤", callback_data=f"opnsetpm#{grp_id}")
-              ],[
-                InlineKeyboardButton("👥 ᴏᴘᴇɴ ʜᴇʀᴇ 👥", callback_data=f"opnsetgrp#{grp_id}")
-              ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        if chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-            await message.reply_text(
-                text="<b>ᴡʜᴇʀᴇ ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴏᴘᴇɴ ꜱᴇᴛᴛɪɴɢꜱ ᴍᴇɴᴜ ? ⚙️</b>",
-                reply_markup=InlineKeyboardMarkup(btn),
-                disable_web_page_preview=True,
-                parse_mode=enums.ParseMode.HTML,
-                reply_to_message_id=message.id
-            )
-        else:
-            await message.reply_text(
-                text=f"<b>ᴄʜᴀɴɢᴇ ʏᴏᴜʀ ꜱᴇᴛᴛɪɴɢꜱ ꜰᴏʀ {title} ᴀꜱ ʏᴏᴜ ᴡɪꜱʜ ⚙</b>",
-                reply_markup=reply_markup,
-                disable_web_page_preview=True,
-                parse_mode=enums.ParseMode.HTML,
-                reply_to_message_id=message.id
-            )
+    try:
+        userid = message.from_user.id if message.from_user else None
+        if not userid:
+            return await message.reply(f"ʏᴏᴜ'ʀᴇ ᴀɴᴏɴʏᴍᴏᴜꜱ ᴀᴅᴍɪɴ.\nᴜꜱᴇ /connect {message.chat.id} ɪɴ ᴘᴍ.")
+        
+        chat_type = message.chat.type
+        if chat_type not in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+            return await message.reply_text("<b>ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ɪɴ ɢʀᴏᴜᴘ.</b>")
+
+        grp_id = message.chat.id
+        if not await is_check_admin(client, grp_id, message.from_user.id):
+            return await message.reply_text('<b>ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴅᴍɪɴ ɪɴ ᴛʜɪꜱ ɢʀᴏᴜᴘ</b>')
+        
+        settings = await get_settings(grp_id)
+        title = message.chat.title
+
+        if settings is not None:
+            try:
+                buttons = [        
+                        [
+                        InlineKeyboardButton(
+                            'ʀᴇꜱᴜʟᴛ ᴘᴀɢᴇ',
+                            callback_data=f'setgs#button#{settings.get("button")}#{grp_id}',
+                        ),
+                        InlineKeyboardButton(
+                            'ʙᴜᴛᴛᴏɴ' if settings.get("button") else 'ᴛᴇxᴛ',
+                            callback_data=f'setgs#button#{settings.get("button")}#{grp_id}',
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            'ꜰɪʟᴇ ꜱᴇɴᴅ ᴍᴏᴅᴇ',
+                            callback_data=f'setgs#botpm#{settings["botpm"]}#{grp_id}',
+                        ),
+                        InlineKeyboardButton(
+                            'ꜱᴛᴀʀᴛ' if settings["botpm"] else 'ᴀᴜᴛᴏ',
+                            callback_data=f'setgs#botpm#{settings["botpm"]}#{grp_id}',
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            'ꜰɪʟᴇ ꜱᴇᴄᴜʀᴇ',
+                            callback_data=f'setgs#file_secure#{settings["file_secure"]}#{grp_id}',
+                        ),
+                        InlineKeyboardButton(
+                            'ᴇɴᴀʙʟᴇ' if settings["file_secure"] else 'ᴅɪꜱᴀʙʟᴇ',
+                            callback_data=f'setgs#file_secure#{settings["file_secure"]}#{grp_id}',
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            'ɪᴍᴅʙ ᴘᴏꜱᴛᴇʀ',
+                            callback_data=f'setgs#imdb#{settings["imdb"]}#{grp_id}',
+                        ),
+                        InlineKeyboardButton(
+                            'ᴇɴᴀʙʟᴇ' if settings["imdb"] else 'ᴅɪꜱᴀʙʟᴇ',
+                            callback_data=f'setgs#imdb#{settings["imdb"]}#{grp_id}',
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            'ꜱᴘᴇʟʟ ᴄʜᴇᴄᴋ',
+                            callback_data=f'setgs#spell_check#{settings["spell_check"]}#{grp_id}',
+                        ),
+                        InlineKeyboardButton(
+                            'ᴇɴᴀʙʟᴇ' if settings["spell_check"] else 'ᴅɪꜱᴀʙʟᴇ',
+                            callback_data=f'setgs#spell_check#{settings["spell_check"]}#{grp_id}',
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            'ᴡᴇʟᴄᴏᴍᴇ ᴍꜱɢ',
+                            callback_data=f'setgs#welcome#{settings["welcome"]}#{grp_id}',
+                        ),
+                        InlineKeyboardButton(
+                            'ᴇɴᴀʙʟᴇ' if settings["welcome"] else 'ᴅɪꜱᴀʙʟᴇ',
+                            callback_data=f'setgs#welcome#{settings["welcome"]}#{grp_id}',
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            'ᴀᴜᴛᴏ ᴅᴇʟᴇᴛᴇ',
+                            callback_data=f'setgs#auto_delete#{settings["auto_delete"]}#{grp_id}',
+                        ),
+                        InlineKeyboardButton(
+                            'ᴇɴᴀʙʟᴇ' if settings["auto_delete"] else 'ᴅɪꜱᴀʙʟᴇ',
+                            callback_data=f'setgs#auto_delete#{settings["auto_delete"]}#{grp_id}',
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            'ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ',
+                            callback_data=f'setgs#auto_ffilter#{settings["auto_ffilter"]}#{grp_id}',
+                        ),
+                        InlineKeyboardButton(
+                            'ᴇɴᴀʙʟᴇ' if settings["auto_ffilter"] else 'ᴅɪꜱᴀʙʟᴇ',
+                            callback_data=f'setgs#auto_ffilter#{settings["auto_ffilter"]}#{grp_id}',
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            'ᴍᴀx ʙᴜᴛᴛᴏɴꜱ',
+                            callback_data=f'setgs#max_btn#{settings["max_btn"]}#{grp_id}',
+                        ),
+                        InlineKeyboardButton(
+                            '10' if settings["max_btn"] else f'{MAX_B_TN}',
+                            callback_data=f'setgs#max_btn#{settings["max_btn"]}#{grp_id}',
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton('⇋ ᴄʟᴏꜱᴇ ꜱᴇᴛᴛɪɴɢꜱ ᴍᴇɴᴜ ⇋', 
+                                            callback_data='close_data'
+                                            )
+                    ]
+                ]        
+                btn = [[
+                        InlineKeyboardButton("👤 ᴏᴘᴇɴ ɪɴ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ 👤", callback_data=f"opnsetpm#{grp_id}")
+                    ],[
+                        InlineKeyboardButton("👥 ᴏᴘᴇɴ ʜᴇʀᴇ 👥", callback_data=f"opnsetgrp#{grp_id}")
+                    ]]
+                reply_markup = InlineKeyboardMarkup(buttons)
+            except Exception as e:
+                return await message.reply_text(f"⚠️ ᴇʀʀᴏʀ ɢᴇɴᴇʀᴀᴛɪɴɢ ʙᴜᴛᴛᴏɴꜱ: {e}")
+            
+            if chat_type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+                await message.reply_text(
+                    text="<b>ᴡʜᴇʀᴇ ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴏᴘᴇɴ ꜱᴇᴛᴛɪɴɢꜱ ᴍᴇɴᴜ ? ⚙️</b>",
+                    reply_markup=InlineKeyboardMarkup(btn),
+                    disable_web_page_preview=True,
+                    parse_mode=enums.ParseMode.HTML,
+                    reply_to_message_id=message.id
+                )
+            else:
+                await message.reply_text(
+                    text=f"<b>ᴄʜᴀɴɢᴇ ʏᴏᴜʀ ꜱᴇᴛᴛɪɴɢꜱ ꜰᴏʀ {title} ᴀꜱ ʏᴏᴜ ᴡɪꜱʜ ⚙</b>",
+                    reply_markup=reply_markup,
+                    disable_web_page_preview=True,
+                    parse_mode=enums.ParseMode.HTML,
+                    reply_to_message_id=message.id
+                )
+    except Exception as e:
+        await message.reply_text(f"⚠️ ᴜɴᴇxᴘᴇᴄᴛᴇᴅ ᴇʀʀᴏʀ: {e}")
 
 
 @Client.on_message((filters.command(["request", "Request"]) | filters.regex("#request") | filters.regex("#Request")) & filters.group)
