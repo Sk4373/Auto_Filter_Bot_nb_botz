@@ -72,21 +72,23 @@ class script(object):
 
 2:- ᴍᴀᴋᴇ <a href=https://t.me/{}</a> ᴀᴅᴍɪɴ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ.
 
-3:- ᴄʀᴇᴀᴛᴇ ᴀᴄᴄᴏᴜɴᴛ ᴏɴ ᴀɴʏ sʜᴏʀᴛɴᴇʀ ʟɪᴋᴇ ʏᴏᴜ ᴄᴀɴ ᴀʟsᴏ ᴜsᴇ ᴛʜɪs ʙᴇsᴛ sʜᴏʀᴛɴᴇʀ <a href=https://zipshort.net/ref/noyanbanerjee>ᴢɪᴘꜱʜᴏʀᴛ</a>.
+3:- ʜᴇʀᴇ ᴀʀᴇ ᴛʜᴇ ғᴜʟʟ ᴠɪᴅᴇᴏ ᴛᴜᴛᴏʀɪᴀʟ <a href=https://t.me/how_to_dwnload/46</a> ʜᴏᴡ ᴛᴏ sᴇᴛᴜᴘ ᴛʜɪs ʙᴏᴛ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ғᴏʀ ᴇᴀʀɴɪɴɢ
 
-4:- ᴛʜᴇɴ sᴇᴛ ʏᴏᴜʀ sʜᴏʀᴛɴᴇʀ ᴅᴇᴛᴀɪʟs ʙʏ ᴛʜɪs ꜰᴏʀᴍᴀᴛ 👇
+4:- ᴄʀᴇᴀᴛᴇ ᴀᴄᴄᴏᴜɴᴛ ᴏɴ ᴀɴʏ sʜᴏʀᴛɴᴇʀ ʟɪᴋᴇ ʏᴏᴜ ᴄᴀɴ ᴀʟsᴏ ᴜsᴇ ᴛʜɪs ʙᴇsᴛ sʜᴏʀᴛɴᴇʀ <a href=https://zipshort.net/ref/noyanbanerjee>ᴢɪᴘꜱʜᴏʀᴛ</a>.
 
-<code>/set_shortner omegalinks.in a7ac9b3012c67d7491414cf272d82593c75f6cbb</code>
+5:- ᴛʜᴇɴ sᴇᴛ ʏᴏᴜʀ sʜᴏʀᴛɴᴇʀ ᴅᴇᴛᴀɪʟs ʙʏ ᴛʜɪs ꜰᴏʀᴍᴀᴛ 👇
 
-<code>/set_shortner_2 mdiskshortner.link e7beb3c8f756dfa15d0bec495abc65f58c0dfa95</code>
+<code>/set_shortner tnshort.net 826eb92e893f6fdb42920983bba04c409bdc0b5d</code>
 
-<code>/set_shortner_3 mdiskshortner.link e7beb3c8f756dfa15d0bec495abc65f58c0dfa95</code>
+<code>/set_shortner_2 tnshort.net 826eb92e893f6fdb42920983bba04c409bdc0b5d</code>
 
-<code>/set_tutorial https://t.me/how_to_dwnload/41</code>
+<code>/set_shortner_3 tnshort.net 826eb92e893f6fdb42920983bba04c409bdc0b5d</code>
 
-<code>/set_tutorial_2 https://t.me/how_to_dwnload/37</code>
+<code>/set_tutorial https://t.me/how_to_dwnload/47</code>
 
-<code>/set_tutorial_3 https://t.me/how_to_dwnload/22</code>
+<code>/set_tutorial_2 https://t.me/how_to_dwnload/47</code>
+
+<code>/set_tutorial_3 https://t.me/how_to_dwnload/47</code>
 
 <code>/set_time 300</code>
 
