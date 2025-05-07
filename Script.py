@@ -72,7 +72,7 @@ class script(object):
 
 2:- ᴍᴀᴋᴇ <a href=https://t.me/{}</a> ᴀᴅᴍɪɴ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ.
 
-3:- ʜᴇʀᴇ ᴀʀᴇ ᴛʜᴇ ғᴜʟʟ ᴠɪᴅᴇᴏ ᴛᴜᴛᴏʀɪᴀʟ <a href=https://t.me/how_to_dwnload/46</a> ʜᴏᴡ ᴛᴏ sᴇᴛᴜᴘ ᴛʜɪs ʙᴏᴛ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ғᴏʀ ᴇᴀʀɴɪɴɢ
+3:- ʜᴇʀᴇ ᴀʀᴇ ᴛʜᴇ ғᴜʟʟ ᴠɪᴅᴇᴏ <a href=https://t.me/how_to_dwnload/46>ᴛᴜᴛᴏʀɪᴀʟ</a> ʜᴏᴡ ᴛᴏ sᴇᴛᴜᴘ ᴛʜɪs ʙᴏᴛ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ғᴏʀ ᴇᴀʀɴɪɴɢ
 
 4:- ᴄʀᴇᴀᴛᴇ ᴀᴄᴄᴏᴜɴᴛ ᴏɴ ᴀɴʏ sʜᴏʀᴛɴᴇʀ ʟɪᴋᴇ ʏᴏᴜ ᴄᴀɴ ᴀʟsᴏ ᴜsᴇ ᴛʜɪs ʙᴇsᴛ sʜᴏʀᴛɴᴇʀ <a href=https://zipshort.net/ref/noyanbanerjee>ᴢɪᴘꜱʜᴏʀᴛ</a>.
 
