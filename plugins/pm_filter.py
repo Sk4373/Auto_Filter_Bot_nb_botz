@@ -95,7 +95,7 @@ async def pm_text(bot, message):
             await message.reply_text(
                 text="<b><i>ɪ ᴀᴍ ɴᴏᴛ ᴡᴏʀᴋɪɴɢ ʜᴇʀᴇ 🚫 ᴊᴏɪɴ ᴍʏ ɢʀᴏᴜᴘ ꜰʀᴏᴍ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴀɴᴅ ꜱᴇᴀʀᴄʜ ᴛʜᴇʀᴇ !</i></b>",
                 reply_markup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton("❤️‍🔥 Rᴇǫᴜᴇsᴛ Hᴇʀᴇ ❤️‍🔥", url="https://t.me/+oUgOcNsKRrg2OTE9")]
+                    [InlineKeyboardButton("❤️‍🔥 Rᴇǫᴜᴇsᴛ Hᴇʀᴇ ❤️‍🔥", url="https://t.me/Request_Corner")]
                 ])
             )
     except Exception as e:
@@ -1520,7 +1520,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
     elif query.data == "source":
         buttons = [[
-            InlineKeyboardButton('ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ 📜', url='https://t.me/How2download_Cpflix_Files/6'),
+            InlineKeyboardButton('ꜱᴏᴜʀᴄᴇ ᴄᴏᴅᴇ 📜', url='https://t.me/zsbhere'),
             InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data='bot')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
