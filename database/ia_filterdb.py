@@ -16,7 +16,9 @@ logger.setLevel(logging.INFO)
 
 processed_movies = set()
 
-MONGODB_SIZE_LIMIT = (512 * 1024 * 1024) - (80 * 1024 * 1024) 
+MONGODB_SIZE = 512
+MONGODB_MINIMUM_REMAINING = 80 
+MONGODB_SIZE_LIMIT = MONGODB_SIZE - MONGODB_MINIMUM_REMAINING 
 
 client = AsyncIOMotorClient(DATABASE_URI)
 db = client[DATABASE_NAME]
@@ -56,29 +58,38 @@ class Media2(Document):
 async def check_db_size(db):
     try:
         stats = await db.command("dbstats")
-        return stats["dataSize"]
+        db_size = stats["dataSize"]
+        db_size_mb = db_size / (1024 * 1024)
+        print(f"📊 DB Size: {db_size_mb:.2f} MB")
+        return db_size_mb
     except Exception as e:
-        logger.error(f"Database size check error: {e}")
-        return 0
-         
+        print(f"Error Checking Database Size: {e}")
+        return 0 
+
+
 async def save_file(bot, media):
     try:
+        global saveMedia
         file_id, file_ref = unpack_new_file_id(media.file_id)
-        file_name = re.sub(r"[^\w\s.-]", " ", str(media.file_name)).strip()       
+        file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name))
         if await Media.count_documents({'file_id': file_id}, limit=1):
-            print(f'{file_name} exists in primary DB')
-            return False, 0
-        target_db = Media
+            logger.warning(f'{file_name} is already saved in primary database!')
+            return False, 0 
         if MULTIPLE_DB:
-            primary_size = await check_db_size(db)
-            if primary_size >= MONGODB_SIZE_LIMIT:
-                print("Using secondary database")
-                target_db = Media2
-                if await Media2.count_documents({'file_id': file_id}, limit=1):
-                    print(f'{file_name} exists in secondary DB')
-                    return False, 0
+            try:
+                primary_db_size = await check_db_size(db)
+                if primary_db_size >= MONGODB_SIZE_LIMIT:
+                    logger.warning("Primary Database Is Running Low On Space. Switching To Second Database.")
+                    saveMedia = Media2
+                else:
+                    saveMedia = Media
+            except Exception as e:
+                print(f"Error Checking Primary Db Size: {e}")
+                saveMedia = Media
+        else:
+            saveMedia = Media
         try:
-            file = target_db(
+            file = saveMedia(
                 file_id=file_id,
                 file_ref=file_ref,
                 file_name=file_name,
@@ -87,15 +98,21 @@ async def save_file(bot, media):
                 mime_type=media.mime_type,
                 caption=media.caption.html if media.caption else None,
             )
-            await file.commit()
-            print(f'Saved to {target_db.__name__}: {file_name}')
-            return True, 1
-        except DuplicateKeyError:
-            print(f'Duplicate file: {file_name}')
-            return False, 0
+        except ValidationError as e:
+            logger.exception(f'Error Occurred While Saving File In Database - {e}')
+            return False, 2
+        else:
+            try:
+                await file.commit()
+            except DuplicateKeyError:
+                logger.warning(f'{getattr(media, "file_name", "NO_FILE")} is already saved in database')   
+                return False, 0
+            else:             
+                logger.info(f'{getattr(media, "file_name", "NO_FILE")} is saved to database')
+                return True, 1
     except Exception as e:
-        print(f'Save error: {e}')
-        return False, 2
+        print(f"Error In Save File - {e}")
+
 
 async def get_search_results(chat_id, query, file_type=None, max_results=10, offset=0, filter=False):
     if chat_id is not None:
@@ -144,7 +161,7 @@ async def get_search_results(chat_id, query, file_type=None, max_results=10, off
     if next_offset >= total_results:
         next_offset = ''
     return files, next_offset, total_results
-    
+
 async def get_bad_files(query, file_type=None):
     query = query.strip()
     if not query:
@@ -173,7 +190,7 @@ async def get_bad_files(query, file_type=None):
         files = files1
     total_results = len(files)
     return files, total_results
-    
+
 
 async def get_file_details(query):
     filter = {'file_id': query}
