@@ -57,7 +57,7 @@ UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/CornersOffi
 AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-1001779351808')) 
 AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '-1001779351808'))
 #-------------------------------------------------------------------------
-AUTH_CHANNELS = [int(auth_channels) for auth_channels in environ.get('AUTH_CHANNELS', '').split()]
+AUTH_CHANNELS = [int(auth_channels) for auth_channels in environ.get('AUTH_CHANNELS', '-1002165779875 -1002600403677 -1001856977789').split()]
 
 IS_VERIFY = is_enabled('IS_VERIFY', True)
 LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '-1001588212650')) #Verification Channel Id 
